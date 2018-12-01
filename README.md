@@ -2,7 +2,13 @@
 Google sheets event organisation linked to a web frontend for live updates, countdowns, etc.
 
 #### General Design
-Google sheets -> SQL Database -> Some API -> Frontend
+Google sheets -> Azure Function -> CosmosDB (Mongo) -> Azure Function -> Frontend
+
+1. Add macro to google sheets (GS).
+1. Change GS, and Azure function is sent the Payload.
+1. Azure func adds the payload to the Mongo DB.
+1. Clients listen to the Azure function for changes.
+1. Loads them in to the UI
 
 #### Required Python Modules
 you need the `gspread` and `oauth2client` python modules to run this
