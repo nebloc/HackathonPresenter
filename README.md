@@ -8,3 +8,5 @@ Google sheets -> SQL Database -> Some API -> Frontend
 you need the `gspread` and `oauth2client` python modules to run this
 install them both with
 `pip install gspread oauth2client`
+
+https://azure.microsoft.com/en-us/blog/serverless-real-time-notifications-in-azure-using-azure-cosmosdb/
