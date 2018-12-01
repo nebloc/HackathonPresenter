@@ -1,0 +1,33 @@
+.message {
+    text-align: center;
+    font-weight: bold;
+}
+/* Make it a marquee */
+.ticker {
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ticker span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 5s linear infinite;
+}
+
+@keyframes ticker {
+    0%   { transform: translate(0,0);
+           font-style:italic;
+           opacity:0;}
+    5%   { opacity:0;}
+    14%  { opacity:0.8;}
+    15%  { transform: translate(-46%, 0);
+           opacity:1;
+           font-style:normal;}
+    85%  { transform: translate(-54%, 0);
+           opacity:1;
+           font-style:normal;}
+    86%  { opacity:0.8;}
+    96%  { opacity:0;}  
+    100% { transform: translate(-100%, 0);
+           opacity:0;}}    
