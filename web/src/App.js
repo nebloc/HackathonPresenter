@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Countdown from './countdown/Countdown';
 import Timeline from './timeline/Timeline';
+import Message from './message/Message';
 
 class App extends Component {
     constructor() {
@@ -15,7 +16,8 @@ class App extends Component {
             <div>
                 <h1>R U Hacking!</h1>
                 <Countdown endTime={Date.parse(this.state.endTime)} />
-                <Timeline/>
+                <Message />
+                <Timeline />
             </div>
         );
     }

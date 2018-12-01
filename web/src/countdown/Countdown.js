@@ -45,9 +45,9 @@ class Countdown extends Component {
 
   render() {
     return (
-      <span className="countdown">
+      <div className="countdown">
         {this.state.hours}:{("0" + this.state.minutes).slice(-2)}:{("0" + this.state.seconds).slice(-2)}
-      </span>
+      </div>
     );
   }
 }
