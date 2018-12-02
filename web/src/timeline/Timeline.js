@@ -5,34 +5,31 @@ export default class Timeline extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            // TODO: Remove place holder data
-            // Need to understand the data structure coming
-            // from google sheets
-            events: [
-                {
-                    name: "Intro",
-                    time: "09:00"
-
-                },
-                {
-                    name: "Hacking starts",
-                    time: "10:00"
-                },
-                {
-                    name: "Lunch",
-                    time: "12:00"
-                },
-                {
-                    name: "Presentation",
-                    time: "17:00"
-                },
-            ]
+            ...props,
+            events: [],
+            eventHeadings: [],
         }
+
+        this.state.connection.on("updatedInfo", data => {
+            let sheetsData = JSON.parse(data).data;
+            let headings = sheetsData.shift();
+            sheetsData = sheetsData.map(val => {
+                const reduced = val.reduce((acc, val, i) => {
+                    const curHeading = headings[i].toLowerCase();
+                    acc[curHeading] = val;
+                    return acc;
+                }, {});
+                return reduced;
+            });
+            this.setState({
+                events: sheetsData,
+                eventHeadings: headings,
+            });
+        });
     }
 
     componentDidMount() {
-        // TODO: listen to serverless function for the
-        // data from GS
+
     }
 
     formatDate(date) {
@@ -46,11 +43,13 @@ export default class Timeline extends React.Component {
     render() {
         return (
             <ul className="timeline">
+                <li>{this.state.eventHeadings.join("|")}</li>
                 {
                     // Loop and render events in the list
                     this.state.events.map((event, i) => {
                         // TODO: set current to true if time is correct
                         let current = false;
+                        console.log(event)
                         return <Event
                             key={i}
                             data={event}
@@ -91,7 +90,7 @@ class Event extends React.Component {
             <li
                 style={{ backgroundColor: this.state.color }}
             >
-                {this.props.data.time} | {this.props.data.name}
+                {Object.values(this.props.data).join("|")}
             </li>
         );
     }

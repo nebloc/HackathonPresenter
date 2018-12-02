@@ -8,29 +8,23 @@ import CustomHttpClient from './CustomHttpClient';
 class App extends Component {
     constructor() {
         super();
-        this.state = {
-            endTime: "02 Dec 2018 00:00:00"
-        }
-
         const apiBaseUrl = 'https://runotify.azurewebsites.net'
         let connection = new HubConnectionBuilder()
             .withUrl(apiBaseUrl, {
-                httpClient: new CustomHttpClient()
+                httpClient: new CustomHttpClient() // this took far too long to work out
             })
             .build();
-        
-        // fetch("https://runotify.azurewebsites.net/negotiate", ).then(d=>{d.json().then((body) => {console.log(body)})})
 
         connection.start()
-            .then(function() { console.log('connected!') })
+            .then(function() { fetch("https://runotify.azurewebsites.net/api/GetIntial?code=0Hf7L8lhKB7UP8GalvtE9IZ9Pmy6jV59Aa4vcD0iCzAdkMOs4UNC1g==") })
             .catch(function(err) {
               console.error(err)
-            })
-        
-        connection.on("updatedInfo", data => {
-            console.log(data);
-        });
- 
+            });
+
+        this.state = {
+            endTime: "02 Dec 2018 00:00:00",
+            connection: connection,
+        }
     }
 
     render() {
@@ -39,7 +33,7 @@ class App extends Component {
                 <h1>R U Hacking!</h1>
                 <Countdown endTime={Date.parse(this.state.endTime)} />
                 <Message />
-                <Timeline />
+                <Timeline connection={this.state.connection} />
             </div>
         );
     }
