@@ -10,7 +10,7 @@ Google sheets -> Azure Function -> CosmosDB (Mongo) -> Azure Function -> Fronten
 1. Clients listen to the Azure function for changes.
 1. Loads them in to the UI
 
-#### Dependendencys
+#### Dependencies
 you need the `gspread` and `oauth2client` python modules to run this
 install them both with
 `pip install gspread oauth2client`
